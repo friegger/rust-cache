@@ -145,6 +145,9 @@ export class CacheConfig {
 
       hasher = crypto.createHash("sha1");
       for (const file of keyFiles) {
+        if ((await fs.promises.lstat(file)).isDirectory()) {
+          continue;
+        }
         for await (const chunk of fs.createReadStream(file)) {
           hasher.update(chunk);
         }

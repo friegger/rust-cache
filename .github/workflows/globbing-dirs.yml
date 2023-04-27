@@ -1,4 +1,4 @@
-name: simple
+name: Globbing Directories
 
 on: [push, pull_request]
 
