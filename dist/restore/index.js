@@ -59949,6 +59949,7 @@ class CacheConfig {
                 keyFiles.push(...(await globFiles(`${root}/**/Cargo.toml\n${root}/**/Cargo.lock\n${root}/**/rust-toolchain\n${root}/**/rust-toolchain.toml`)));
             }
             keyFiles.sort((a, b) => a.localeCompare(b));
+            keyFiles = keyFiles.filter(file => !external_fs_default().statSync(file).isDirectory());
             hasher = external_crypto_default().createHash("sha1");
             for (const file of keyFiles) {
                 for await (const chunk of external_fs_default().createReadStream(file)) {
